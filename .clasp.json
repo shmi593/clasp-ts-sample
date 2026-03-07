@@ -1,0 +1,7 @@
+{
+  "scriptId": "__SCRIPT_ID__",
+  "rootDir": "dist",
+  "scriptExtensions": [".js", ".gs"],
+  "filePushOrder": [],
+  "skipSubdirectories": false
+}

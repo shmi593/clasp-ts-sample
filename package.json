@@ -1,0 +1,29 @@
+{
+  "name": "clasp-ts-sample",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsx esbuild.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "check": "pnpm typecheck && biome check .",
+    "push": "clasp push && clasp version \"$(git rev-parse --short HEAD)\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.30.3",
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.6",
+    "@google/clasp": "^3.2.0",
+    "@types/google-apps-script": "^2.0.8",
+    "@types/node": "^25.3.5",
+    "esbuild": "^0.27.3",
+    "ts-morph": "27.0.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
