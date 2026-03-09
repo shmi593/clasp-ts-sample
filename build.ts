@@ -1,4 +1,4 @@
-import esbuild from 'esbuild';
+import { build } from 'rolldown';
 import { Project, type SourceFile } from 'ts-morph';
 import ts from 'typescript';
 
@@ -36,7 +36,8 @@ const getExportedFunctionNames = (sourceFile: SourceFile): string[] =>
 const generateGASCallableWrapper = (functionName: string) => `
 function ${functionName} () {
   return ${GLOBAL_NAME}.${functionName}(...arguments);
-}`;
+}
+`;
 
 const generateGASCallableFooter = () => {
   const project = new Project({ tsConfigFilePath: TS_CONFIG_PATH });
@@ -46,18 +47,21 @@ const generateGASCallableFooter = () => {
     .join('\n');
 };
 
-esbuild
-  .build({
-    entryPoints: [ENTRY_POINT],
-    outfile: OUT_FILE_PATH,
-    bundle: true,
-    format: 'iife',
-    globalName: GLOBAL_NAME,
-    footer: { js: generateGASCallableFooter() },
-  })
-  .catch((e) => {
+(async () => {
+  try {
+    await build({
+      input: ENTRY_POINT,
+      output: {
+        file: OUT_FILE_PATH,
+        format: 'iife',
+        name: GLOBAL_NAME,
+        footer: generateGASCallableFooter,
+      },
+    });
+
+    console.log('✅ Build completed successfully.');
+  } catch (e) {
     console.error(e);
     process.exit(1);
-  });
-
-console.log('✅ Build completed successfully.');
+  }
+})();
