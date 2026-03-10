@@ -33,8 +33,8 @@ const getExportedFunctionNames = (sourceFile: SourceFile): string[] =>
     .map((fn) => fn.getName())
     .filter((name): name is string => name !== undefined);
 
-const generateGASCallableWrapper = (functionName: string) => `
-function ${functionName} () {
+const generateGASCallableWrapper = (functionName: string) =>
+  `function ${functionName} () {
   return ${GLOBAL_NAME}.${functionName}(...arguments);
 }
 `;
@@ -55,7 +55,7 @@ const generateGASCallableFooter = () => {
         file: OUT_FILE_PATH,
         format: 'iife',
         name: GLOBAL_NAME,
-        footer: generateGASCallableFooter,
+        postFooter: generateGASCallableFooter,
       },
     });
 
