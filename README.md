@@ -15,8 +15,8 @@ clasp-ts-sample/
 │   └── lib.ts         # ロジック関数群 (hello, getCellValue など)
 ├── tests/
 │   └── lib.test.ts    # ユニットテスト (Vitest)
-├── dist/              # ビルド出力 (esbuild)
-├── esbuild.ts         # ビルド設定スクリプト
+├── dist/              # ビルド出力 (rolldown)
+├── build.ts           # ビルド設定スクリプト
 ├── tsconfig.json      # TypeScript 設定
 ├── biome.json         # Biome (フォーマッター/リンター) 設定
 ├── vitest.config.ts   # Vitest 設定
@@ -25,7 +25,7 @@ clasp-ts-sample/
 
 ### ビルドフロー
 
-1. TypeScript コードが `esbuild` でバンドルされる
+1. TypeScript コードが `rolldown` でバンドルされる
 2. `ts-morph` が、エクスポートされた関数を自動抽出
 3. 抽出した関数ごとに GAS 呼び出し可能なラッパーを生成
    - index.ts で `export` された関数を GAS から呼び出し可能にするためのコードを自動生成
